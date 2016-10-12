@@ -16,10 +16,8 @@
 			menu = menu + '1. 전체 학생 조회\n';
 			menu = menu + '2. 특정 학생 조회 (학생번호)\n';
 			menu = menu + '3. 학생 추가\n';
-			menu = menu + '4. 학생 정보 수정 (학생번호)\n';
+			menu = menu + '4. 학생 성적 수정 (학생번호)\n';
 			menu = menu + '5. 학생 정보 삭제 (학생번호)\n';
-			menu = menu + '6. 학생 성적 추가 (학생번호)\n';
-			menu = menu + '7. 학생 성적 수정 (학생번호)\n';
 			menu = menu + '0. 프로그램 종료';
 
 			var selectedMenu = parseInt(prompt(menu, '1'));
@@ -43,14 +41,6 @@
 			} else if (selectedMenu == 5) {
 
 				studentController.requestDeleteStudent();
-
-			} else if (selectedMenu == 6) {
-
-				studentController.requestInsertScore();
-
-			} else if (selectedMenu == 7) {
-
-				studentController.requestUpdateScore();
 
 			} else if (selectedMenu == 0) {
 
