@@ -8,58 +8,73 @@
 	<!-- <script src="user2.js"></script> -->
 	<script src="user3.js"></script>
 	<script>
-		var studentController = new StudentController();
+		// var studentController = new StudentController();
+		//
+		// while (true) {
+		//
+		// 	var menu = '메뉴를 선택하세요.\n';
+		// 	menu = menu + '1. 전체 학생 조회\n';
+		// 	menu = menu + '2. 특정 학생 조회 (학생번호)\n';
+		// 	menu = menu + '3. 학생 추가\n';
+		// 	menu = menu + '4. 학생 성적 수정 (학생번호)\n';
+		// 	menu = menu + '5. 학생 정보 삭제 (학생번호)\n';
+		// 	menu = menu + '0. 프로그램 종료';
+		//
+		// 	var selectedMenu = parseInt(prompt(menu, '1'));
+		//
+		// 	if (selectedMenu == 1) {
+		//
+		// 		studentController.requestSelectListStudent();
+		//
+		// 	} else if (selectedMenu == 2) {
+		//
+		// 		studentController.requestSelectOneStudent();
+		//
+		// 	} else if (selectedMenu == 3) {
+		//
+		// 		studentController.requestCheckStudentNo();
+		//
+		// 	} else if (selectedMenu == 4) {
+		//
+		// 		studentController.requestUpdateStudent();
+		//
+		// 	} else if (selectedMenu == 5) {
+		//
+		// 		studentController.requestDeleteStudent();
+		//
+		// 	} else if (selectedMenu == 0) {
+		//
+		// 		break;
+		//
+		// 	} else {
+		//
+		// 		alert('메뉴를 다시 선택해 주세요.');
+		//
+		// 	}
+		// }
+		//
+		// alert('프로그램 종료');
 
-		while (true) {
+	</script>
+	<script>
 
-			var menu = '메뉴를 선택하세요.\n';
-			menu = menu + '1. 전체 학생 조회\n';
-			menu = menu + '2. 특정 학생 조회 (학생번호)\n';
-			menu = menu + '3. 학생 추가\n';
-			menu = menu + '4. 학생 성적 수정 (학생번호)\n';
-			menu = menu + '5. 학생 정보 삭제 (학생번호)\n';
-			menu = menu + '0. 프로그램 종료';
+		var output = "";
 
-			var selectedMenu = parseInt(prompt(menu, '1'));
-
-			if (selectedMenu == 1) {
-
-				studentController.requestSelectListStudent();
-
-			} else if (selectedMenu == 2) {
-
-				studentController.requestSelectOneStudent();
-
-			} else if (selectedMenu == 3) {
-
-				studentController.requestCheckStudentNo();
-
-			} else if (selectedMenu == 4) {
-
-				studentController.requestUpdateStudent();
-
-			} else if (selectedMenu == 5) {
-
-				studentController.requestDeleteStudent();
-
-			} else if (selectedMenu == 0) {
-
-				break;
-
-			} else {
-
-				alert('메뉴를 다시 선택해 주세요.');
-
-			}
+		for(var key in window){
+			output += "●" + key + ": " + window[key] + "\n";
 		}
 
-		alert('프로그램 종료');
+		alert(output);
+
+		window.open("http://naver.com" , "child" , "width=1000, height=1000" , true);
 
 	</script>
 </head>
 
 <body>
-
+	<button type="button">
+		팝업띄우기
+	</button>
 </body>
 
 </html>

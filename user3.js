@@ -59,6 +59,10 @@ function Student(studentNo, studentName, korean, math, english){
     return averageScore;
   }
 
+  this.setAverageScore = function(input_averageScore){
+    averageScore = input_averageScore;
+  }
+
 } // End of Student
 
 
@@ -259,6 +263,32 @@ function StudentDao(){
   this.studentList = function(){
 
     var students = studentRepository.getStudents();
+
+    // 퍙균점수 내림차순 처리
+    students.sort(function(a,b){
+      return b.getAverageScore() - a.getAverageScore();
+    });
+
+    // for(var i=0; i<students.length-1; i++){
+    //   var changed = false;
+    //   for(var j=0; j<students.length-1-i; j++){
+    //
+    //     if(students[j].getAverageScore() > students[j+1].getAverageScore()){
+    //
+    //         var temp = students[j].getAverageScore();
+    //         students[j].setAverageScore(students[j+1].getAverageScore());
+    //         students[j+1].setAverageScore(temp);
+    //         changed = true;
+    //
+    //     }
+    //   }
+    //
+    //   if(!changed){
+    //     break;
+    //   }
+    //
+    // }
+
     return students;
 
   } // End of studentList()
@@ -374,12 +404,6 @@ function AlertView(){
 function StudentListView(){
 
   this.studentListView = function(studentList){
-
-    // 퍙균점수 내림차순 처리
-    var sortingField = "averageScore";
-    studentList.sort(function(a,b){
-      return a[sortingField] - b[sortingField];
-    });
 
     var output = "학번\t이름\t국어\t수학\t영어\t총점\t평균\n";
     for(var i=0; i<studentList.length; i++){
