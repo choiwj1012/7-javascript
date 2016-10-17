@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app>
+<head>
+  <meta charset="UTF-8">
+  <title>Default HTML</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <style>
+
+    *{margin:0; padding:0;}
+
+    form{
+      width:800px;
+      height:100px;
+      margin: 10px;
+      padding : 10px;
+      border:1px solid #888;
+    }
+
+    table{
+      position: relative;
+      top:50px;
+      left:50px;
+      border: 1px solid black;
+      border-collapse:collapse;
+      text-align: center;
+    }
+
+    td{
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+    #contentBox{
+      position: absolute;
+      top:510px;
+      left:400px;
+      border:1px solid black;
+      width:400px;
+      height:300px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div>
+    <form>
+      <fieldset>
+        <legend> 글쓰기 </legend>
+        <input type="text" id="number" placeholder="글번호">
+        <input type="text" id="title" placeholder="제목">
+        <input type="text" id="writer" placeholder="작성자">
+        <input type="text" id="views" placeholder="조회수">
+        <button type="submit" id="writeBtn">글쓰기</button>
+      </fieldset>
+    </form>
+
+    <form>
+      <fieldset>
+        <legend> 글조회 </legend>
+        <input type="text" id="searchNum_Search" placeholder="조회할 글번호">
+        <button type="submit" id="searchBtn">글조회</button>
+      </fieldset>
+    </form>
+
+    <form>
+      <fieldset>
+        <legend> 글수정 </legend>
+        <input type="text" id="searchNum_Update" placeholder="수정할 글번호">
+        <input type="text" id="updateTitle" placeholder="수정할 제목">
+        <input type="text" id="updateWriter" placeholder="수정할 작성자">
+        <input type="text" id="updateViews" placeholder="수정할 조회수">
+        <button type="submit" id="updateBtn">글수정</button>
+      </fieldset>
+    </form>
+
+    <form>
+      <fieldset>
+        <legend> 글삭제 </legend>
+        <input type="text" id="deleteNum" placeholder="삭제할 글번호">
+        <button type="submit" id="deleteBtn">글삭제</button>
+      </fieldset>
+    </form>
+
+  </div>
+
+  <table>
+    <thead>
+      <tr></tr>
+    </thead>
+    <tbody>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+    </tbody>
+  </table>
+
+  <div id="contentBox">
+
+  </div>
+
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="article.js"></script>
+</body>
+</html>

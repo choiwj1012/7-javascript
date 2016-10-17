@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app>
+<head>
+  <meta charset="UTF-8">
+  <title>Default HTML</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <style>
+
+    *{margin:0; padding:0}
+
+    #wrapper{
+      position:relative;
+      top:100px;
+      left:100px;
+      width:210px;
+      height:332px;
+      border:1px solid #5e5e5e;
+    }
+
+    #screen{
+      width:206px;
+      height:70px;
+      border:1px solid #989898;
+      margin:1px 1px 0px 1px;
+      background: #ecf2ce;
+    }
+
+    button{
+      width:50px;
+      height:50px;
+      float:left;
+      margin:1px;
+    }
+
+  #plus > button{
+    float:right;
+    height:102px;
+  }
+
+  #number_3{
+    clear:both;
+  }
+
+  #ent > button{
+    float:right;
+    height:102px;
+  }
+
+  #number_4 > button:nth-child(2){
+    width:102px;
+  }
+
+  </style>
+</head>
+<body>
+
+  <div id="wrapper">
+
+    <div id="screen">
+      <p></p>
+    </div>
+
+    <div id="upside">
+      <button id="allClear">AC</button>
+      <button class="operator">/</button>
+      <button class="operator">*</button>
+      <button class="operator">-</button>
+    </div>
+
+    <div id="number_1">
+      <button class="num">7</button>
+      <button class="num">8</button>
+      <button class="num">9</button>
+    </div>
+
+    <div id="plus">
+      <button class="operator">+</button>
+    </div>
+
+    <div id="number_2">
+      <button class="num">4</button>
+      <button class="num">5</button>
+      <button class="num">6</button>
+    </div>
+
+    <div id="number_3">
+      <button class="num">1</button>
+      <button class="num">2</button>
+      <button class="num">3</button>
+    </div>
+
+    <div id="ent">
+      <button id="enter">Ent</button>
+    </div>
+
+    <div id="number_4">
+      <button class="num">0</button>
+      <button>.</button>
+    </div>
+
+  </div>
+
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script>
+
+    $(document).ready(function(){
+
+      var nums = [];
+      var opers = [];
+      var allNumber = 0;
+
+      $(".allClear").on("click",function(){
+        $("#screen").empty();
+        nums.clear();
+      });
+
+      $(".num").on("click",function(){
+
+        var inputNumber = $(this).text();
+        nums.push(inputNumber);
+        $("#screen").text($("#screen").text() + inputNumber);
+
+      });
+
+      $(".operator").on("click",function(){
+
+        var operator = $(this).text();
+        opers.push(operator);
+        $("#screen").text($("#screen").text() + operator);
+      });
+
+      $("#enter").on("click",function(){
+        var operator = '';
+        var result = 0;
+        for(var i = 0 ; i < nums.length ; i++) {
+          if(i == 0) {
+            result = Number(nums[i]);
+            operator = opers[i];
+          } else {
+            if(operator == "+") {
+              result = result + Number(nums[i]);
+            } else if(operator == "-") {
+              result = result - nums[i];
+            } else if(operator == "*") {
+              result = result * nums[i];
+            } else if(operator == "/") {
+              result = result / nums[i];
+            }
+          }
+        }
+
+        alert(result);
+      });
+
+    });
+
+  </script>
+</body>
+</html>
