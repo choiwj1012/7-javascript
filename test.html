@@ -6,7 +6,32 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <style>
+
+    body{
+      width:1920px;
+      height:1080px;
+    }
+
+    input{
+      position: relative;
+      top:100px;
+      left:100px;
+      width:50px;
+      height:50px;
+    }
+
+    button{
+      position: relative;
+      top:80px;
+      left:100px;
+      width:50px;
+      height:50px;
+    }
+
+  </style>
   <script>
+
     // window.onload = function(){
     //   alert('Process - 0');
 
@@ -74,14 +99,8 @@
 </head>
 <body>
 
-  <!-- <h1 id="header">HEADER</h1> -->
-
-  <!-- <h1>Process - 1</h1>
-  <h2>Process - 2</h2> -->
-
-  <!-- <button id="btn" type="button">
-    팝업띄우기
-  </button> -->
+  <input type="checkbox" id="chk" checked="checked">
+  <button id="btn">버튼</button>
 
   <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -105,6 +124,40 @@
     //     });
     //
     // });
+
+  </script>
+  <script>
+
+    // $(document).ready(function(){
+    //
+    //   $("body").on("click", function(){
+    //     $(this).css({
+    //       background : "url(http://i.imgur.com/2PBLK.jpg)"
+    //     });
+    //   });
+    //
+    // });
+
+  </script>
+  <script>
+
+    $(document).ready(function(){
+
+      $("#chk").change(function(){
+
+        if($("#chk").is(":checked")){
+          alert("버튼의 click 이벤트가 활성화되었습니다");
+          $("#btn").click(function(){
+            alert("버튼이 click 되었습니다");
+          });
+        } else {
+          $("#btn").off("click");
+          alert("버튼의 click 이벤트가 제거되었습니다");
+        }
+
+      });
+
+    });
 
   </script>
 </body>

@@ -11,7 +11,7 @@
     *{margin:0; padding:0;}
 
     form{
-      width:800px;
+      width:1000px;
       height:100px;
       margin: 10px;
       padding : 10px;
@@ -45,13 +45,15 @@
 </head>
 <body>
 
-  <div>
+  <!-- input_boxs -->
+  <div id="input_boxs">
     <form>
       <fieldset>
         <legend> 글쓰기 </legend>
         <!-- 글번호 중복체크 요함 -->
         <input type="text" id="number" placeholder="글번호">
         <input type="text" id="title" placeholder="제목">
+        <input type="text" id="content" placeholder="글내용">
         <input type="text" id="writer" placeholder="작성자">
         <input type="text" id="views" placeholder="조회수">
         <button type="submit" id="writeBtn">글쓰기</button>
@@ -71,6 +73,7 @@
         <legend> 글수정 </legend>
         <input type="text" id="searchNum_Update" placeholder="수정할 글번호">
         <input type="text" id="updateTitle" placeholder="수정할 제목">
+        <input type="text" id="updateContent" placeholder="수정할 내용">
         <input type="text" id="updateWriter" placeholder="수정할 작성자">
         <input type="text" id="updateViews" placeholder="수정할 조회수">
         <button type="submit" id="updateBtn">글수정</button>
@@ -86,10 +89,18 @@
     </form>
 
   </div>
+  <!-- End of Input_boxs -->
 
+
+  <!-- table -->
   <table>
     <thead>
-      <tr></tr>
+      <tr>
+        <td>글번호</td>
+        <td>글제목</td>
+        <td>작성자</td>
+        <td>조회수</td>
+      </tr>
     </thead>
     <tbody>
       <tr></tr>
@@ -101,7 +112,9 @@
       <tr></tr>
     </tbody>
   </table>
+  <!-- End of Table -->
 
+  <!-- contentBox -->
   <div id="contentBox">
     <div id="innerContent">
 
@@ -110,11 +123,83 @@
     <button>이전글</button>
     <button>다음글</button>
   </div>
+  <!-- End of contentBox -->
+
 
   <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-  <script src="article.js"></script>
+  <script src="JQuery_article_hw.js"></script>
+  <script>
+
+    // 시작시 더미데이터 삽입
+    var articleController = new ArticleController();
+    articleController.requestInputDummyData();
+
+    // 새글 쓰기
+    $(document).ready(function(){
+
+      $("#writeBtn").on("click", function(){
+
+        var number = $("#number").val();
+        var title = $("#title").val();
+        var content = $("#content").val();
+        var writer = $("#writer").val();
+        var views = $("#views").val();
+
+        var newArticle = new Article(number, title, content, writer, views);
+        articleController.requestInsertArticle(newArticle);
+
+      });
+
+    });
+
+    // 글 조회하기
+    $(document).ready(function(){
+
+      $("#searchBtn").on("click", function(){
+
+        var selectedNum = $("#searchNum_Search").val();
+        articleController.requestSearchArticle(selectedNum);
+
+      });
+
+    });
+
+
+    // 글 수정하기
+    $(document).ready(function(){
+
+      $("#updateBtn").on("click", function(){
+
+        var selectedNum = $("#searchNum_Update").val();
+        var title = $("#updateTitle").val();
+        var content = $("#updateContent").val();
+        var writer = $("#updateWriter").val();
+        var views = $("#updateViews").val();
+
+        var updateArticle = new Article(selectedNum, title, content, writer, views);
+        articleController.requestUpdateArticle(updateArticle);
+
+      });
+
+    });
+
+
+    // 글 삭제하기
+    $(document).ready(function(){
+
+      $("#deleteBtn").on("click", function(){
+
+        var deleteNum = $("#deleteNum").val();
+        articleController.requestDeleteArticle(deleteNum);
+
+      });
+
+    });
+
+  </script>
+
 </body>
 </html>
