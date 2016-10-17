@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app>
+<head>
+  <meta charset="UTF-8">
+  <title>Default HTML</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <style>
+
+    *{border:none;}
+
+    .prev{
+      position: relative;
+      top:60px;
+      left:110px;
+      width:100px;
+      height:159px;
+      opacity:0;
+      background-image : url("http://www.samsung.com/sec/samsung-pay/images/mob/btn_slide_prev.png");
+    }
+
+    .next{
+      position: relative;
+      top:60px;
+      left:-110px;
+      width:100px;
+      height:159px;
+      opacity:0;
+      background-image : url("http://www.samsung.com/sec/samsung-pay/images/mob/btn_slide_next.png");
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="header">
+
+  </div>
+
+  <div id="content">
+    <button type="button" class="prev"></button>
+    <img src="" alt="">
+    <button type="button" class="next"></button>
+  </div>
+
+
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script>
+
+    $(document).ready(function(){
+
+      // image array
+      var images = [
+        "http://i.imgur.com/mRxPLHD.jpg",
+        "http://cfile8.uf.tistory.com/image/2315344856B956132F4119",
+        "https://s-media-cache-ak0.pinimg.com/originals/cd/4e/51/cd4e51cb95373f27606dee47b3bfd0ad.jpg",
+        "http://cfile4.uf.tistory.com/T450x450/2510734257B7044D26BF64"
+      ];
+
+      // insert <img> tag and images
+      for(var i=0; i < images.length; i++){
+
+        var img = $("<img>").attr("src",images[i]);
+        img.css({
+          width : 200,
+          height : 200,
+          margin : 10
+        });
+        $("#header").append(img);
+
+      }
+
+      $(".prev").mouseenter(function(){
+
+        $(this).animate({
+          opacity : 0.5
+        },500);
+
+      });
+
+      $(".prev").mouseleave(function(){
+
+        $(this).animate({
+          opacity : 0
+        },500);
+
+      });
+
+      $(".next").mouseenter(function(){
+
+        $(this).animate({
+          opacity : 0.5
+        },500);
+
+      });
+
+      $(".next").mouseleave(function(){
+
+        $(this).animate({
+          opacity : 0
+        },500);
+
+      });
+
+      var currentImagePosition = 0;
+
+      $(".prev").on("click",function(){
+
+        currentImagePosition = currentImagePosition - 1;
+
+        if(currentImagePosition < 0){
+
+          currentImagePosition = 0;
+          $("#content > img").attr("src", images[currentImagePosition]);
+          alert("처음 이미지 입니다");
+
+        } else if(currentImagePosition >= 0){
+
+          $("#content > img").attr("src", images[currentImagePosition]);
+
+        }
+
+      });
+
+      $(".next").on("click",function(){
+
+        currentImagePosition = currentImagePosition + 1;
+
+        if(currentImagePosition > 3){
+
+          currentImagePosition = 3;
+          $("#content > img").attr("src", images[currentImagePosition]);
+          alert("마지막 이미지 입니다");
+
+        } else if(currentImagePosition <= 3){
+
+          $("#content > img").attr("src", images[currentImagePosition]);
+
+        }
+
+      });
+
+    });
+
+    $(document).ready(function(){
+
+      $("#content").css({
+        position : "relative",
+        top : 100,
+        left : 200
+      })
+
+      $("#content > img").css({
+        width : 500,
+        height : 500
+      })
+
+      $("#header > img").on("click",function(){
+        var src = $(this).attr("src");
+        $("#content > img").attr("src", src);
+      });
+
+    });
+
+  </script>
+</body>
+</html>
