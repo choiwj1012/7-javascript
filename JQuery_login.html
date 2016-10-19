@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <title>Document</title>
+</head>
+<body>
+
+  아이디 : <input type="text" id="id" placeholder="아이디를 입력하세요" maxlength="3"> <br>
+  비밀번호 : <input type="text" id="pw" placeholder="비밀번호를 입력하세요" maxlength="3">
+  <button id="login"> 로그인 </button>
+
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script>
+
+    $(document).ready(function() {
+
+        $("#id").keydown(function(e){
+            if(e.keyCode == 13){
+              $("#pw").focus();
+            }
+        });
+
+        $("#login").click(function(){
+          var id = $("#id").val();
+          var pw = $("#pw").val();
+
+          if(id == "111"){
+            if(pw == "111"){
+              alert("로그인 성공");
+            } else {
+              alert("로그인 실패");
+            }
+          } else {
+            alert("아이디가 틀렸습니다");
+          }
+
+        });
+
+        $("#pw").keydown(function(event) {
+
+          if(event.keyCode == 13){
+            $("#login").trigger("click");
+          }
+
+        });
+
+    });
+
+  </script>
+</body>
+</html>
