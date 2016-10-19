@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  	table, tr {
+  		width: 100%;
+  		border-top: 1px dotted black;
+  		border-bottom: 1px dotted black;
+  	}
+
+  	th, td {
+  		width: 20%;
+  		border: 1px solid black;
+  	}
+
+  	#read_next {
+  		float: right;
+  	}
+  </style>
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="js/Article.js"></script>
+  <script src="js/ArticleRepository.js"></script>
+  <script src="js/ArticleDao.js"></script>
+  <script src="js/ArticleController.js"></script>
+  <script src="js/Controllers.js"></script>
+
+  <!-- 글쓰기 이벤트 핸들링 -->
+  <script>
+    $(document).ready(function() {
+
+      $("#insert_button").click(function(){
+
+        var title = $("#insert_title_text").val();
+        var content = $("#insert_content_text").val();
+        var writer = $("#insert_writer_text").val();
+
+        var article = new Article(title, content, writer);
+        var isSuccess = Controllers.getArticleController().requestInsert(article);
+
+        if(!isSuccess){
+          alert("글쓰기에 실패했습니다");
+          return;
+        }
+
+        var tr = $("<tr></tr>");
+        var td_checkbox = $("<td></td>").html("<input type='checkbox'>");
+        var td_article_num = $("<td></td>").text(article.getNum());
+        var td_article_title = $("<td></td>").text(article.getTitle());
+        var td_article_writer = $("<td></td>").text(article.getWriter());
+        var td_article_readCount = $("<td></td>").text(article.getReadCount());
+
+        tr.append(td_checkbox, td_article_num, td_article_title, td_article_writer, td_article_readCount);
+        $("tbody").append(tr);
+
+      });
+
+    });
+
+  </script>
+
+  <!-- 글조회 이벤트 핸들링 -->
+  <script>
+    $(document).ready(function() {
+
+      $("#read_button").on("click",function(){
+
+        var readNum = $("#read_num_text").val();
+        var readArticle = Controllers.getArticleController().requestRead(readNum);
+
+        if(readArticle == null){
+          alert("오류가 발생했습니다");
+          return;
+        }
+
+        var num_div = $("<div></div>").text("글번호 : " + readArticle.getNum());
+        var title_div = $("<div></div>").text("글제목 : " + readArticle.getTitle());
+        var writer_div = $("<div></div>").text("작성자 : " + readArticle.getWriter());
+        var readCount_div = $("<div></div>").text("조회수 : " + readArticle.getReadCount());
+        var read_div = $("<div></div>").append(num_div, title_div, writer_div, readCount_div);
+
+        $("#result_read").html(read_div);
+
+        var trs = $("tbody").children();
+        for(var i=0; i<trs.length; i++){
+          var num = trs.eq(i).children().eq(1).text();
+          if(num == readArticle.getNum()){
+            trs.eq(i).children().eq(4).text(readArticle.getReadCount());
+          }
+        }
+
+      });
+
+    });
+  </script>
+
+  <!-- 글수정 이벤트 핸들링 -->
+  <script>
+    $(document).ready(function() {
+
+      $("#update_button").on("click",function(){
+
+        var update_num = $("#update_num_text").val();
+        var update_title_text = $("#update_title_text").val();
+        var update_content_text = $("#update_content_text").val();
+        var update_writer_text = $("#update_writer_text").val();
+
+        var updatedArticle = new Article(update_title_text, update_content_text, update_writer_text);
+        updatedArticle.setNum(update_num);
+
+        var isSuccess = Controllers.ArticleController.requestUpdate(updatedArticle);
+
+        if(!isSuccess){
+          alert("수정 실패");
+          return;
+        }
+
+        var trs = $("tbody").children();
+        for(var i=0; i<trs.length; i++){
+          var num = trs.eq(i).children().eq(1).text();
+          if(num == updatedArticle.getNum()){
+            trs.eq(i).children().eq(2).text(updatedArticle.getTitle());
+            trs.eq(i).children().eq(3).text(updateArticle.getWriter());
+          }
+        }
+
+      });
+
+    });
+  </script>
+
+</head>
+<body>
+
+  <!-- 	글목록 -->
+  <fieldset>
+    <legend>글목록</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>선택</th>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div>
+      <label for="all_check">
+        <input type="checkbox" id="all_check" name="all_check">
+        전체 선택
+      </label>
+    </div>
+    <div>
+      <button id="read_prev">이전글</button>
+      <button id="selected_delete_button">선택 삭제</button>
+      <button id="read_next">다음글</button>
+    </div>
+  </fieldset>
+
+  <!-- 	글조회 -->
+  <fieldset>
+    <legend>글조회</legend>
+    <div>
+      <input type="text" id="read_num_text" placeholder="번호 입력"> <input
+        type="button" id="read_button" value="글조회">
+    </div>
+    <div id="result_read">
+    </div>
+  </fieldset>
+
+  <!-- 	글쓰기 -->
+  <fieldset>
+    <legend>글쓰기</legend>
+    <div>
+      <input type="text" id="insert_title_text" placeholder="제목 입력">
+      <input type="text" id="insert_content_text" placeholder="내용 입력">
+      <input type="text" id="insert_writer_text" placeholder="작성자 입력">
+      <input type="button" id="insert_button" value="글쓰기">
+    </div>
+  </fieldset>
+
+  <!-- 	글삭제 -->
+  <fieldset>
+    <legend>글삭제</legend>
+    <div>
+      <input type="text" id="delete_num_text" placeholder="번호 입력">
+      <input type="button" id="delete_button" value="글삭제">
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>글수정</legend>
+    <div>
+      <input type="text" id="update_num_text" placeholder="번호 입력">
+      <input type="text" id="update_title_text" placeholder="제목 입력">
+      <input type="text" id="update_content_text" placeholder="내용 입력">
+      <input type="text" id="update_writer_text" placeholder="작성자 입력">
+      <input type="button" id="update_button" value="글수정">
+    </div>
+  </fieldset>
+
+</body>
+</html>
